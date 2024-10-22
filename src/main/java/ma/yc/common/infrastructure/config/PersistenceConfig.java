@@ -18,14 +18,12 @@ import java.util.Properties;
 
 
 @Configuration
-@ComponentScan(basePackages = "ma.yc")
 @EnableJpaRepositories("ma.yc")
 @EnableTransactionManagement
 @RequiredArgsConstructor
 public class PersistenceConfig {
 
     private final DatabaseProperties properties;
-
 
     @Bean
     public DataSource dataSource () {
