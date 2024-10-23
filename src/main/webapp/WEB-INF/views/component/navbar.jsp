@@ -1,11 +1,3 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<html>
-<head>
-    <title>Title</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-
-</head>
-<body>
 <nav x-data="{ isOpen: false }" class="bg-white shadow dark:bg-gray-800">
     <div class="container px-6 py-4 mx-auto">
         <div class="lg:flex lg:items-center">
@@ -76,40 +68,3 @@
         </div>
     </div>
 </nav>
-<section class="bg-gray-900 text-white">
-    <div class="mx-auto max-w-screen-xl px-4 py-32 lg:flex lg:h-screen lg:items-center">
-        <div class="mx-auto max-w-3xl text-center">
-            <h1
-                    class="bg-gradient-to-r from-green-300 via-blue-500 to-purple-600 bg-clip-text text-3xl font-extrabold text-transparent sm:text-5xl"
-            >
-                Welcome to AssurEase
-            </h1>
-
-            <p class="mx-auto mt-4 max-w-xl sm:text-xl/relaxed">
-                AssurEase - Simplifiez vos assurances, maîtrisez votre tranquillité.
-            </p>
-
-            <div class="mt-8 flex flex-wrap justify-center gap-4">
-                <a
-                        class="block w-full rounded border border-blue-600 bg-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-transparent hover:text-white focus:outline-none focus:ring active:text-opacity-75 sm:w-auto"
-                        href="#"
-                >
-                    Get Started
-                </a>
-
-                <a
-                        class="block w-full rounded border border-blue-600 px-12 py-3 text-sm font-medium text-white hover:bg-blue-600 focus:outline-none focus:ring active:bg-blue-500 sm:w-auto"
-                        href="#"
-                >
-                    Learn More
-                </a>
-            </div>
-        </div>
-    </div>
-</section>
-
-<div>
-    ${dto.username()}
-</div>
-</body>
-</html>
