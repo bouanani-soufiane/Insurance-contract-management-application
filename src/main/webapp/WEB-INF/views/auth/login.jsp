@@ -5,12 +5,6 @@
 </head>
 <body>
 <jsp:include page="../component/navbar.jsp"/>
-<!--
-  Heads up! 👋
-
-  Plugins:
-    - @tailwindcss/forms
--->
 
 <div class="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
     <div class="mx-auto max-w-lg">
@@ -20,8 +14,12 @@
             Lorem ipsum dolor sit amet, consectetur adipisicing elit. Obcaecati sunt dolores deleniti
             inventore quaerat mollitia?
         </p>
-
-        <form action="#" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
+        <c:if test="${not empty success}">
+            <div class="bg-green-200 px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg">
+                <span class="text-green-800">${error}.</span>
+            </div>
+        </c:if>
+        <form action="${pageContext.request.contextPath}/login" method="POST" class="mb-0 mt-6 space-y-4 rounded-lg p-4 shadow-lg sm:p-6 lg:p-8">
             <p class="text-center text-lg font-medium">Sign in to your account</p>
 
             <div>
@@ -99,7 +97,7 @@
 
             <p class="text-center text-sm text-gray-500">
                 No account?
-                <a class="underline"  href="${pageContext.request.contextPath}/signup">Sign up</a>
+                <a class="underline" href="${pageContext.request.contextPath}/signup">Sign up</a>
             </p>
         </form>
     </div>

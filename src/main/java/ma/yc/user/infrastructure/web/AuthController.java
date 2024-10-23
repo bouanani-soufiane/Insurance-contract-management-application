@@ -1,7 +1,10 @@
 package ma.yc.user.infrastructure.web;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import ma.yc.common.domain.exception.UserAlreadyExistsException;
+import ma.yc.user.application.dto.request.UserLoginDto;
 import ma.yc.user.application.dto.request.UserRequestDto;
 import ma.yc.user.application.service.AuthService;
 import ma.yc.user.infrastructure.mapping.UserMapper;
@@ -25,7 +28,7 @@ public class AuthController {
     private final AuthService service;
     private final UserMapper mapper;
 
-    @GetMapping("/")
+    @GetMapping("/home")
     public ModelAndView home ( Model model ) {
         return new ModelAndView("home");
     }
@@ -37,16 +40,22 @@ public class AuthController {
 
     @PostMapping("/signup")
     public RedirectView register ( @Valid @ModelAttribute("userRequestDto") UserRequestDto dto, BindingResult result, RedirectAttributes redirectAttributes ) {
+
         if (result.hasErrors()) {
-            System.out.println("error validation");
+            result.getFieldErrors().forEach(error -> redirectAttributes.addFlashAttribute("error_" + error.getField(), error.getDefaultMessage()));
             return new RedirectView("/signup", true);
         }
         try {
             service.signup(dto);
             redirectAttributes.addFlashAttribute("success", "user registered with success");
+            System.out.println("Success flash message set" + redirectAttributes.getFlashAttributes());
+            return new RedirectView("/signup", true);
+        } catch (UserAlreadyExistsException e) {
+            redirectAttributes.addFlashAttribute("error_email", "Email address is already registered");
             return new RedirectView("/signup", true);
         } catch (Exception e) {
             redirectAttributes.addFlashAttribute("error", "error registering user  ");
+            System.out.println(e.getMessage());
             return new RedirectView("/signup", true);
         }
 
@@ -58,8 +67,26 @@ public class AuthController {
     }
 
     @PostMapping("/login")
-    public RedirectView login ( @ModelAttribute("userRequestDto") UserRequestDto dto ) {
-        service.login(dto);
-        return new RedirectView("/login", true);
+    public RedirectView login ( @Valid @ModelAttribute("userLoginDto") UserLoginDto dto, BindingResult result, RedirectAttributes redirectAttributes, HttpSession session ) {
+        if (result.hasErrors()) {
+            result.getFieldErrors().forEach(error -> redirectAttributes.addFlashAttribute("error_" + error.getField(), error.getDefaultMessage()));
+            return new RedirectView("/login", true);
+        }
+
+        try {
+            var user = service.login(dto);
+            session.setAttribute("user", user);
+            session.setAttribute("authenticated", true);
+            System.out.println(user);
+            return new RedirectView("/home", true);
+        } catch (IllegalArgumentException e) {
+            redirectAttributes.addFlashAttribute("error", "Invalid email or password");
+            System.out.println("error password");
+            return new RedirectView("/login", true);
+        } catch (Exception e) {
+            System.out.println("here");
+            redirectAttributes.addFlashAttribute("error", "An error occurred during login");
+            return new RedirectView("/login", true);
+        }
     }
 }
