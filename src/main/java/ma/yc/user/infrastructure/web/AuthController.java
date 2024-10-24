@@ -72,7 +72,6 @@ public class AuthController {
             result.getFieldErrors().forEach(error -> redirectAttributes.addFlashAttribute("error_" + error.getField(), error.getDefaultMessage()));
             return new RedirectView("/login", true);
         }
-
         try {
             var user = service.login(dto);
             session.setAttribute("user", user);
