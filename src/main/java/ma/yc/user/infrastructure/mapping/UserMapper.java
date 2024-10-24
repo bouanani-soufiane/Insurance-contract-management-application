@@ -8,9 +8,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(componentModel = "spring")
-public interface UserMapper extends GenericMapper<UserResponseDto, User> {
+public interface UserMapper extends GenericMapper< User,UserRequestDto,UserResponseDto> {
 
-    User toEntity(UserRequestDto dto);
-    UserResponseDto toDto(User user);
 
 }

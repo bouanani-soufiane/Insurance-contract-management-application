@@ -27,50 +27,63 @@
                 </div>
             </div>
 
-            <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12">
-                <form action="#" class="space-y-4">
+            <div class="rounded-lg bg-white p-8 shadow-lg lg:col-span-3 lg:p-12 relative">
+                <c:if test="${not empty message}">
+                    <div class="bg-green-200 px-6 py-4 mx-2 my-4 rounded-md text-lg flex items-center mx-auto max-w-lg absolute top-[-30px]" >
+                        <span class="text-green-800">${message}.</span>
+                    </div>
+                </c:if>
+                <form action="${pageContext.request.contextPath}/insurance/carinsurance" method="post" class="space-y-4">
                     <div>
-                        <label class="sr-only" for="name">Name</label>
+                        <label class="sr-only" for="driverAge">Age</label>
                         <input
                                 class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                placeholder="Name"
-                                type="text"
-                                id="name"
-                        />
+                                placeholder="Driver Age"
+                                type="number"
+                                id="driverAge"
+                                name="driverAge"
+                                required
+                                min="1"/>
                     </div>
 
                     <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
                         <div>
-                            <label class="sr-only" for="email">Email</label>
+                            <label class="sr-only" for="model">Model</label>
                             <input
                                     class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Email address"
-                                    type="email"
-                                    id="email"
-                            />
+                                    placeholder="Car Model"
+                                    type="text"
+                                    id="model"
+                                    name="model"
+                                    required/>
                         </div>
 
                         <div>
-                            <label class="sr-only" for="phone">Phone</label>
+                            <label class="sr-only" for="brand">Brand</label>
                             <input
                                     class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                    placeholder="Phone Number"
-                                    type="tel"
-                                    id="phone"
-                            />
+                                    placeholder="Car Brand"
+                                    type="text"
+                                    id="brand"
+                                    name="brand"
+                                    required/>
                         </div>
                     </div>
 
-                    <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-3">
+                    <div class="grid grid-cols-1 gap-4 text-center sm:grid-cols-2">
                         <div>
                             <label
                                     for="Option1"
                                     class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                    tabindex="0"
-                            >
-                                <input class="sr-only" id="Option1" type="radio" tabindex="-1" name="option" />
-
-                                <span class="text-sm"> Option 1 </span>
+                                    tabindex="0">
+                                <input
+                                        class="sr-only"
+                                        id="Option1"
+                                        type="radio"
+                                        name="carType"
+                                        value="LUXURY"
+                                        required/>
+                                <span class="text-sm">LUXURY</span>
                             </label>
                         </div>
 
@@ -78,43 +91,61 @@
                             <label
                                     for="Option2"
                                     class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                    tabindex="0"
-                            >
-                                <input class="sr-only" id="Option2" type="radio" tabindex="-1" name="option" />
-
-                                <span class="text-sm"> Option 2 </span>
-                            </label>
-                        </div>
-
-                        <div>
-                            <label
-                                    for="Option3"
-                                    class="block w-full cursor-pointer rounded-lg border border-gray-200 p-3 text-gray-600 hover:border-black has-[:checked]:border-black has-[:checked]:bg-black has-[:checked]:text-white"
-                                    tabindex="0"
-                            >
-                                <input class="sr-only" id="Option3" type="radio" tabindex="-1" name="option" />
-
-                                <span class="text-sm"> Option 3 </span>
+                                    tabindex="0">
+                                <input
+                                        class="sr-only"
+                                        id="Option2"
+                                        type="radio"
+                                        name="carType"
+                                        value="UTILITY"/>
+                                <span class="text-sm">UTILITY</span>
                             </label>
                         </div>
                     </div>
 
-                    <div>
-                        <label class="sr-only" for="message">Message</label>
+                    <!-- Driver History Section -->
+                    <div class="space-y-4">
+                        <div>
+                            <label class="sr-only" for="driverHistory.accidentCount">Accident Count</label>
+                            <input
+                                    class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Number of Accidents"
+                                    type="number"
+                                    id="driverHistory.accidentCount"
+                                    name="driverHistory.accidentCount"
+                                    required
+                                    min="0"/>
+                        </div>
 
-                        <textarea
-                                class="w-full rounded-lg border-gray-200 p-3 text-sm"
-                                placeholder="Message"
-                                rows="8"
-                                id="message"
-                        ></textarea>
+                        <div>
+                            <label class="sr-only" for="driverHistory.infractionCount">Infraction Count</label>
+                            <input
+                                    class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Number of Infractions"
+                                    type="number"
+                                    id="driverHistory.infractionCount"
+                                    name="driverHistory.infractionCount"
+                                    required
+                                    min="0"/>
+                        </div>
+
+                        <div>
+                            <label class="sr-only" for="driverHistory.yearsAccidentFree">Years Accident Free</label>
+                            <input
+                                    class="w-full rounded-lg border-gray-200 p-3 text-sm"
+                                    placeholder="Years Accident Free"
+                                    type="number"
+                                    id="driverHistory.yearsAccidentFree"
+                                    name="driverHistory.yearsAccidentFree"
+                                    required
+                                    min="0"/>
+                        </div>
                     </div>
 
                     <div class="mt-4">
                         <button
                                 type="submit"
-                                class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto"
-                        >
+                                class="inline-block w-full rounded-lg bg-black px-5 py-3 font-medium text-white sm:w-auto">
                             Send Enquiry
                         </button>
                     </div>
