@@ -1,4 +1,4 @@
-package ma.yc.common.infrastructure.config;
+package ma.yc.config;
 
 import com.zaxxer.hikari.HikariDataSource;
 import lombok.RequiredArgsConstructor;
@@ -23,16 +23,16 @@ import java.util.Properties;
 @RequiredArgsConstructor
 public class PersistenceConfig {
 
-    private final DatabaseProperties properties;
+
 
     @Bean
     public DataSource dataSource () {
 
         HikariDataSource dataSource = new HikariDataSource();
 
-        dataSource.setJdbcUrl(properties.getUrl());
-        dataSource.setUsername(properties.getUsername());
-        dataSource.setPassword(properties.getPassword());
+        dataSource.setJdbcUrl("jdbc:postgresql://localhost:5432/ins");
+        dataSource.setUsername("postgres");
+        dataSource.setPassword("admin");
         dataSource.setDriverClassName("org.postgresql.Driver");
 
         return dataSource;
@@ -44,7 +44,7 @@ public class PersistenceConfig {
 
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setGenerateDdl(true);
-        jpaVendorAdapter.setShowSql(properties.getShowSql());
+        jpaVendorAdapter.setShowSql(true);
         jpaVendorAdapter.setDatabasePlatform("org.hibernate.dialect.PostgreSQLDialect");
 
         LocalContainerEntityManagerFactoryBean factoryBean = new LocalContainerEntityManagerFactoryBean();
@@ -55,9 +55,9 @@ public class PersistenceConfig {
 
 
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.hbm2ddl.auto", properties.getHbm2ddlAuto());
-        jpaProperties.put("hibernate.show_sql", properties.getShowSql());
-        jpaProperties.put("hibernate.format_sql", properties.getFormatSql());
+        jpaProperties.put("hibernate.hbm2ddl.auto", "update");
+        jpaProperties.put("hibernate.show_sql", true);
+        jpaProperties.put("hibernate.format_sql", true);
         jpaProperties.put("hibernate.dialect", "org.hibernate.dialect.PostgreSQLDialect");
 
         factoryBean.setJpaProperties(jpaProperties);

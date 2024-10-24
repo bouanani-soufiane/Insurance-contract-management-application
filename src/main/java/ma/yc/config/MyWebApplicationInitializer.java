@@ -1,4 +1,4 @@
-package ma.yc.common.infrastructure.config;
+package ma.yc.config;
 
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletRegistration;

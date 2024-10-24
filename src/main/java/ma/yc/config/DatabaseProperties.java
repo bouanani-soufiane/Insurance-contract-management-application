@@ -1,4 +1,4 @@
-package ma.yc.common.infrastructure.config;
+package ma.yc.config;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -10,7 +10,6 @@ import org.springframework.stereotype.Component;
 @Setter
 @Component
 @PropertySource(value = {"classpath:application.properties"})
-
 public class DatabaseProperties {
 
     @Value("${app.database.hibernate.show-sql}")

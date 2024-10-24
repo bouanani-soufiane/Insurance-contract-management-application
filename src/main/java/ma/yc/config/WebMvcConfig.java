@@ -1,4 +1,4 @@
-package ma.yc.common.infrastructure.config;
+package ma.yc.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
