@@ -33,7 +33,7 @@
                         <span class="text-green-800">${message}.</span>
                     </div>
                 </c:if>
-                <form action="${pageContext.request.contextPath}/insurance/carinsurance" method="post" class="space-y-4">
+                <form action="${pageContext.request.contextPath}/insurance/car" method="post" class="space-y-4">
                     <div>
                         <label class="sr-only" for="driverAge">Age</label>
                         <input

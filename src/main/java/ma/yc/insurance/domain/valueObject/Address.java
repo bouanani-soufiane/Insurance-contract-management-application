@@ -11,7 +11,4 @@ public record Address(String street, String city, RiskZone riskZone) {
         Objects.requireNonNull(riskZone, "Risk zone cannot be null");
     }
 
-    public boolean isInRiskZone () {
-        return !RiskZone.LOW_RISK.equals(riskZone);
-    }
 }
